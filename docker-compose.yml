@@ -1,8 +1,8 @@
 version: '3'
 services:
   front-end:
-    image: jusk2/photomotion
+    image: jusk2/photomotion-main
     hostname: photomotion-main
     restart: always
     ports:
-      - "9999:80"
+      - "8080:80"
