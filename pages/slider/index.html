@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="ko-KR" >
+<head>
+  <meta charset="UTF-8">
+  <title>photomotion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel='stylesheet' href='https://rsms.me/inter/inter.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="viewport" id="app">
+      <transition name="nav">
+    <nav class="nav" v-if="loaded">
+      <a class="nav__brand" href="*"></a>
+      <ul class="nav__list">
+        <li class="nav__list-item">
+          <a class="nav__list-item-link" href="../index.html">Home</a>
+        </li>
+      </ul>
+    </nav>
+  </transition>
+
+  <main class="main">
+    <transition name="main__slider">
+      <transition-group v-if="loaded" tag="div" class="main__slider" name="main__slide-image" mode="out-in">
+        <img class="main__slide-image" alt="" v-for="(slide, index) of slides" :key="index" :src="slide.img" v-if="index === currentActiveSlide" />
+      </transition-group>
+    </transition>
+    <transition-group tag="div" class="main__headline" name="main__headline-span" mode="out-in">
+      <span v-for="(slide, index) of slides" :key="index" v-if="index === currentActiveSlide" class="main__headline-span">{{ slide.headline }}</span>
+    </transition-group>
+      
+      </main>
+      <aside class="aside">
+        <transition name="aside__nav">
+          <div class="aside__nav" v-if="loaded">
+            <button class="aside__button" @click="incrementSlide(-1)">←</button
+            ><button class="aside__button" @click="incrementSlide(1)">→</button>
+          </div>
+        </transition>
+        <transition name="aside__slider">
+          <transition-group
+            v-if="loaded"
+            tag="div"
+            class="aside__slider"
+            name="aside__slide-image"
+            mode="out-in"
+            ref="aside"
+          >
+            <img
+              class="aside__slide-image"
+              alt=""
+              v-for="(slide, index) of slides"
+              :key="index"
+              :src="slide.img"
+              v-if="index === nextActiveSlide"
+            />
+          </transition-group>
+        </transition>
+        <transition name="progress-indicator">
+          <ul
+            class="progress-indicator"
+            :data-slides-count="'0' + slides.length"
+            v-if="loaded"
+          >
+            <li
+              v-for="(slide,index) of slides"
+              :class="index === currentActiveSlide ? 'progress-indicator__bar  progress-indicator__bar--active' : 'progress-indicator__bar'"
+              :key="index"
+            ></li>
+          </ul>
+        </transition>
+      </aside>
+    </div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/node-vibrant@3.2.0-alpha/dist/vibrant.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
